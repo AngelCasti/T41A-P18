@@ -32,3 +32,38 @@ WITH RECURSIVE red_jefes AS (
 )
 
 SELECT * FROM red_jefes;
+----------------------------------------------------------------
+--Ejercicios Recomendados
+CREATE TABLE ciudades (
+    id SERIAL PRIMARY KEY,
+    nombre TEXT,
+    ruta_id INT
+);
+
+INSERT INTO ciudades (nombre, ruta_id) VALUES
+('Amsterdam', 3),
+('Berlín', 4),
+('Frankfurt', 1),
+('Dortmund', 4),
+('Munich', 1);
+
+WITH RECURSIVE red_rutas AS (
+    SELECT id, nombre, ruta_id FROM ciudades WHERE nombre = 'Amsterdam'
+    UNION ALL
+    SELECT c.id, c.nombre, c.ruta_id
+    FROM ciudades c
+    INNER JOIN red_rutas r ON c.ruta_id = r.id
+)
+
+SELECT * FROM red_rutas;
+
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre TEXT,
+    intereses TEXT[]
+);
+
+INSERT INTO usuarios (nombre, intereses)
+VALUES ('Ana', ARRAY['PostgreSQL', 'Grafos', 'NoSQL']);
+
+SELECT nombre, intereses[1] AS primer_interes FROM usuarios;
