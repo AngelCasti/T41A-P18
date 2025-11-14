@@ -15,7 +15,6 @@ def db_conn():
     conn = None
     try:
         conn = psycopg2.connect(**DB_CONFIG)
-        psycopg2.extras.register_hstore(conn)
         yield conn 
     finally:
         if conn:
