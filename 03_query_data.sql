@@ -21,7 +21,7 @@ WITH RECURSIVE red_rutas AS (
     SELECT c.id, c.nombre, c.ruta_id
     FROM ciudades c
     JOIN red_rutas r
-      ON r.id = ANY(c.ruta_id)
+      ON c.id = ANY(r.ruta_id)
 )
 
 SELECT DISTINCT * FROM red_rutas;
