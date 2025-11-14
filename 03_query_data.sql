@@ -14,17 +14,28 @@ SELECT * FROM red_jefes;
 
 --Ejercicios Recomendados
 WITH RECURSIVE red_rutas AS (
-    SELECT id, nombre, ruta_id
+    SELECT
+        id,
+        nombre,
+        ruta_id,
+        ARRAY[id] AS visitados
     FROM ciudades
     WHERE nombre = 'Amsterdam'
+
     UNION ALL
-    SELECT c.id, c.nombre, c.ruta_id
+
+    SELECT
+        c.id,
+        c.nombre,
+        c.ruta_id,
+        r.visitados || c.id
     FROM ciudades c
-    JOIN red_rutas r
-      ON c.id = ANY(r.ruta_id)
+    JOIN red_rutas r ON c.id = ANY(r.ruta_id)
+    WHERE NOT c.id = ANY(r.visitados)
 )
 
-SELECT DISTINCT * FROM red_rutas;
+SELECT id, nombre, ruta_id
+FROM red_rutas;
 
 
 
