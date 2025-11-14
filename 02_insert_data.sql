@@ -3,10 +3,10 @@ INSERT INTO productos (nombre, etiquetas) VALUES ('refrigerador', ARRAY['electr�
 
 --CTE
 INSERT INTO empleados (nombre, jefe_id) VALUES
-('David', 1),
+('David', NULL),
 ('Angel', 1),
 ('Jesús', 2),
-('Jesús', 2),
+('Carlos', 2),
 ('Cruz', 3);
 
 --Ejercicios Recomendados
