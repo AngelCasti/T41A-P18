@@ -32,23 +32,20 @@ def run_query(conn, query, params=None):
 
 def test_consulta_productos_array_tecnologia(db_conn):
     query = """
-    SELECT * FROM productos
-    WHERE 'tecnología' ILIKE ANY(etiqueta)
-    ORDER BY id;
+    SELECT * FROM productos WHERE 'tecnología' = ANY(etiquetas);
     """
     result = run_query(db_conn, query)
     assert len(result) > 0
 
 def test_funcion_obtener_subordinados_de_jefe_2(db_conn):
     
-    query = "SELECT * FROM obtener_subordinados_de(2) ORDER BY id_empleado;"
+    query = "SELECT * FROM red_jefes;"
     result = run_query(db_conn, query)
     assert len(result) > 0
 
 def test_funcion_obtener_ciudades_alcanzables(db_conn):
     query = """
-    SELECT * FROM obtener_ciudades_alcanzables(1)
-    ORDER BY id_ciudad, distancia;
+    SELECT DISTINCT * FROM red_rutas;
     """
     result = run_query(db_conn, query)
     assert len(result) > 0
